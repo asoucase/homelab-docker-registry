@@ -105,3 +105,12 @@ You can also add the `--push` flag to push all images to Docker Hub. Make sure y
 
 
 
+## Create your own CA
+
+**Pending**
+
+
+
+## Push image to your registry
+
+**Pending**

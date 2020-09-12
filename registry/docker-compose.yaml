@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx-registry
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "443:443"
+    depends_on:
+      - docker-registry
+      - registry-ui
+
+  docker-registry:
+    image: registry:2.7.1
+    volumes:
+      - registry-data:/var/lib/registry
+
+  registry-ui:
+    image: quiq/docker-registry-ui
+    ports:
+      - 8000:8000
+    volumes:
+      - "./config.yml:/opt/config.yml"
+    depends_on:
+      - docker-registry
+
+volumes:
+  registry-data:
+    driver: local
