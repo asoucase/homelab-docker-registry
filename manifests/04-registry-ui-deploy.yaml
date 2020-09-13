@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: registry-ui
+  name: registry-ui
+  namespace: docker-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry-ui
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: registry-ui
+    spec:
+      containers:
+      - image: arturosoucase/quiq-docker-registry-ui
+        name: docker-registry-ui
+        volumeMounts:
+        - name: config
+          mountPath: /opt/config.yml
+          subPath: config.yml
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: registry-ui-cm
+status: {}

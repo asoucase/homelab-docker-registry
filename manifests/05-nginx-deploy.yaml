@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nginx
+  name: nginx
+  namespace: docker-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        volumeMounts:
+        - name: conf
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true
+        - name: cert
+          mountPath: /etc/ssl/certs/master.local.bundle.crt
+          subPath: master.local.bundle.crt
+          readOnly: true
+        - name: key
+          mountPath: /etc/ssl/private/master.local.key
+          subPath: master.local.key
+          readOnly: true
+      volumes:
+      - name: cert
+        secret:
+          secretName: nginx-crt
+      - name: key
+        secret:
+          secretName: nginx-key
+      - name: conf
+        configMap:
+          name: nginx-conf
+status: {}
