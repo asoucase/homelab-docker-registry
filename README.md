@@ -147,6 +147,15 @@ To bundle both certs:
 $ cat master.local.crt ca.crt >> master.local.bundle.crt
 ```
 
+### Install a CA 
+
+1. Copy certificate (in PEM format) to `/usr/local/share/ca-certificates`
+2. Update CA certificates
+
+```bash
+$ sudo update-ca-certificates
+```
+
 
 
 ## Push image to your registry
