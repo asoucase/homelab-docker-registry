@@ -1,6 +1,14 @@
 # Homelab Docker Registry in Kubernetes + Raspberry Pi 4 
 HomeLab Docker Registry in Kubernetes running in a Raspberry Pi 4 cluster.
 
+![](.github/images/diagram.png)
+
+
+
+As Raspberry Pi 4 runs on an `arm64` SOC (Broadcom BCM2711), I had to compile and build a docker image of Quiq's docker registry UI for `arm64`. It has been pushed to Docker Hub at  `arturosoucase/quiq-docker-registry-ui`
+
+
+
 ## Build images for `arm64`
 
 ### Install Requirements
@@ -146,6 +154,10 @@ To bundle both certs:
 ```bash
 $ cat master.tld.crt ca.crt >> master.tld.bundle.crt
 ```
+
+> *Note*:
+>
+> The generate certificate does not include any subject alt names. Firefox is OK with that, but Chrome will complain and mark the connection as not private. 
 
 ### Install a CA 
 
