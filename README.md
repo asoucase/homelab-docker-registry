@@ -147,6 +147,25 @@ To bundle both certs:
 $ cat master.local.crt ca.crt >> master.local.bundle.crt
 ```
 
+
+
 ## Push image to your registry
 
-**Pending**
+1. Login to private registry
+
+```bash
+$ docker login myregistry.local
+Authenticating with existing credentials...
+WARNING! Your password will be stored unencrypted in /home/demo/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+```
+
+2. Tag image using private registry name
+
+```bash
+$ docker image tag nginx:latest myregistry.local/nginx:latest
+```
+
