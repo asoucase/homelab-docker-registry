@@ -4,7 +4,7 @@ listen_addr: 0.0.0.0:8000
 base_path: /ui
 
 # Registry URL with schema and port.
-registry_url: http://docker-registry:5000
+registry_url: http://registry:5000
 # Verify TLS certificate when using https.
 verify_tls: false
 

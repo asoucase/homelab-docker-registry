@@ -13,7 +13,7 @@ services:
       - docker-registry
       - registry-ui
 
-  docker-registry:
+  registry:
     image: registry:2.7.1
     volumes:
       - registry-data:/var/lib/registry
