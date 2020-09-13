@@ -105,11 +105,47 @@ You can also add the `--push` flag to push all images to Docker Hub. Make sure y
 
 
 
-## Create your own CA
+## Certificates
 
-**Pending**
+### Create your own CA
 
+1. Generate RSA key for the CA
 
+```bash
+$ openssl genrsa -out ca.key 4096
+```
+
+2. Generate a CA certificate using the key (valid for 10 years)
+
+```bash
+$ openssl req -new -x509 -key ca.key -out ca.crt -days 3650
+```
+
+### Generate certificate signed by CA
+
+1. Generate key
+
+```bash
+$ openssl genrsa -out master.local.key 4096
+```
+
+2. Generate CSR (certificate signing request)
+
+```bash
+$ openssl req -new -key master.local.key -out master.local.csr
+```
+
+3. Sign CSR to generate certificate
+
+```bash
+$ openssl x509 -req -in master.local.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out master.local.crt
+```
+
+To bundle both certs:
+
+```bash
+$ cat master.local.crt ca.crt >> master.local.bundle.crt
+```
 
 ## Push image to your registry
 
