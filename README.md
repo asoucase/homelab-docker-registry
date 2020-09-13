@@ -126,25 +126,25 @@ $ openssl req -new -x509 -key ca.key -subj "/C=AQ/ST=-/O=HomelabCertificateAutho
 1. Generate key
 
 ```bash
-$ openssl genrsa -out master.local.key 4096
+$ openssl genrsa -out master.tld.key 4096
 ```
 
-2. Generate CSR (certificate signing request) with common and alternative names (domains)
+2. Generate CSR (certificate signing request
 
 ```bash
-$ openssl req -new -key master.local.key -subj "/C=AQ/ST=-/O=HomelabDockerRegistry/CN=master.local" -addext "subjectAltName=DNS:master.local" -out master.local.csr
+$ openssl req -new -key master.tld.key -subj "/C=AQ/ST=-/O=HomelabDockerRegistry/CN=master.tld" -out master.tld.csr
 ```
 
 3. Sign CSR to generate certificate
 
 ```bash
-$ openssl x509 -req -in master.local.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 365 -out master.local.crt
+$ openssl x509 -req -in master.tld.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 365 -out master.tld.crt
 ```
 
 To bundle both certs:
 
 ```bash
-$ cat master.local.crt ca.crt >> master.local.bundle.crt
+$ cat master.tld.crt ca.crt >> master.tld.bundle.crt
 ```
 
 ### Install a CA 
