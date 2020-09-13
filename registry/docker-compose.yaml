@@ -2,12 +2,13 @@ version: '3.1'
 
 services:
   nginx:
-    image: nginx-registry
-    build:
-      context: .
-      dockerfile: nginx/Dockerfile
+    image: nginx
     ports:
       - "443:443"
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+      - "./certs/master.local.key:/etc/ssl/private/master.local.key"
+      - "./certs/master.local.crt:/etc/ssl/certs/master.local.bundle.crt"
     depends_on:
       - docker-registry
       - registry-ui

@@ -118,7 +118,7 @@ $ openssl genrsa -out ca.key 4096
 2. Generate a CA certificate using the key (valid for 10 years)
 
 ```bash
-$ openssl req -new -x509 -key ca.key -out ca.crt -days 3650
+$ openssl req -new -x509 -key ca.key -subj "/C=AQ/ST=-/O=HomelabCertificateAuthority/CN=homelab" -out ca.crt -days 3650
 ```
 
 ### Generate certificate signed by CA
@@ -129,16 +129,16 @@ $ openssl req -new -x509 -key ca.key -out ca.crt -days 3650
 $ openssl genrsa -out master.local.key 4096
 ```
 
-2. Generate CSR (certificate signing request)
+2. Generate CSR (certificate signing request) with common and alternative names (domains)
 
 ```bash
-$ openssl req -new -key master.local.key -out master.local.csr
+$ openssl req -new -key master.local.key -subj "/C=AQ/ST=-/O=HomelabDockerRegistry/CN=master.local" -addext "subjectAltName=DNS:master.local" -out master.local.csr
 ```
 
 3. Sign CSR to generate certificate
 
 ```bash
-$ openssl x509 -req -in master.local.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out master.local.crt
+$ openssl x509 -req -in master.local.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 365 -out master.local.crt
 ```
 
 To bundle both certs:
