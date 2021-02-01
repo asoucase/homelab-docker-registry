@@ -22,4 +22,11 @@ spec:
       - image: registry:2.7.1
         name: registry
         resources: {}
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/registry/
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nfs-registry-pvc
 status: {}
